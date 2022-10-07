@@ -2,7 +2,7 @@
 ## Instagram Clone App
 To visualize this project. In console execute 
 # !! Make sure to run npm install first.
--> expo start -c.
+-> npm start -c.
 
 This is going to open the metro bundler in web. 
 From there If you have a simulator running. 
