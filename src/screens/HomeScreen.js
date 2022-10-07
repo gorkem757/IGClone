@@ -41,6 +41,19 @@ function HomeScreen(props) {
     //     setLoadingMorePosts(false);
     // }, [page]);
 
+    // function renderLoadingMoreDataSpinner() {
+    //     if (loadingMorePosts) {
+    //         <ActivityIndicator size={22} />
+    //     } else return null;
+    // }
+
+
+    React.useEffect(async () => {
+        await getPosts();
+        setLoading(false)
+    }, []);
+
+    
     async function getPosts() {
         setLoadingPosts(true);
         const response = await Get(routes.Posts.getAll);
@@ -58,21 +71,9 @@ function HomeScreen(props) {
         );
     }
 
-    // function renderLoadingMoreDataSpinner() {
-    //     if (loadingMorePosts) {
-    //         <ActivityIndicator size={22} />
-    //     } else return null;
-    // }
-
-
-    React.useEffect(async () => {
-        await getPosts();
-        setLoading(false)
-    }, []);
-
 
     if (loading) return (
-        <ActivityIndicator size={26} color={accentColor} style={{ position: 'absolute', left: deviceWidth * 0.5 - 13, top: deviceHeight * 0.5 - 26, }} />
+        <ActivityIndicator size={26} color={accentColor} style={styles.activityIndicator} />
     );
 
     if (!posts || posts?.length == 0) return (
@@ -90,7 +91,7 @@ function HomeScreen(props) {
                 onRefresh={() => getPosts()}
                 data={posts}
                 // onEndReached={() => setPage((prev) => prev + 1)}
-                style={{ flex: 1, }}
+                style={{ flex: 1 }}
                 renderItem={({ item, index }) => renderPosts(item, index)}
                 onMomentumScrollEnd={(event) => {
                     const index = Math.floor(
@@ -106,6 +107,11 @@ function HomeScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    activityIndicator: {
+        position: 'absolute',
+        left: deviceWidth * 0.5 - 13,
+        top: deviceHeight * 0.5 - 26
+    },
     container: {
         flex: 1,
         alignItems: 'center',

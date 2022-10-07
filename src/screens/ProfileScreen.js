@@ -2,11 +2,16 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import EmptyContent from '../components/EmptyContent';
-import { paleCream, primaryColor } from '../styles';
+import { accentColor, deviceHeight, paleCream } from '../styles';
 
+/**
+ * @param {*} props 
+ * @returns 
+ */
 function ProfileScreen(props) {
     return (
         <View style={styles.container}>
+            <Text style={styles.welcomeText}>{`Welcome ${props.userName}!`}</Text>
             <EmptyContent iconName="construct-outline" text="Coming soon..." />
         </View>
     );
@@ -19,8 +24,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: paleCream
     },
-    title: {
-        color: primaryColor
+    welcomeText: {
+        color: accentColor,
+        position: 'absolute',
+        top: deviceHeight * 0.3,
+        fontSize: 26,
+        fontWeight: '600',
+        fontStyle: 'italic'
     }
 });
 
